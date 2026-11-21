@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect-4 AI Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="hero band">
+ <div class="wrap">
+  <h1>Connect-4 AI</h1>
+  <p class="sub">Play against an AI that searches the game tree with Minimax and Alpha-Beta pruning. The numbers under the board show how the AI rates every column before it moves.</p>
+  <div class="game">
+   <div class="boardbox">
+    <div class="status" id="status" aria-live="polite"></div>
+    <div class="board" id="board" role="group" aria-label="Connect-4 board"></div>
+    <div class="scores" id="scores" aria-label="AI score for each column"></div>
+    <p class="scoresnote" id="scoresnote">After each AI move: its score for every column. Highest is played; "Loses" means the opponent can force a win.</p>
+   </div>
+   <div class="panel">
+    <div>
+     <div class="lbl">Level</div>
+     <div class="seg" id="levels"></div>
+     <p class="hint" id="levelhint"></p>
+    </div>
+    <div class="two" style="margin:0;gap:14px">
+     <div><div class="lbl">Who starts</div><div class="seg" id="starts"></div></div>
+     <div><div class="lbl">Heuristic weights</div><div class="seg" id="weights"></div></div>
+    </div>
+    <div class="seg">
+     <button class="btn main" id="newgame">New game</button>
+     <button class="btn" id="undo">Undo</button>
+     <button class="btn" id="watch">Watch AI vs AI</button>
+    </div>
+    <div>
+     <div class="lbl">AI's last move</div>
+     <div class="stats">
+      <div class="stat"><b id="s-col">–</b><span>column played</span></div>
+      <div class="stat"><b id="s-depth">–</b><span>moves looked ahead</span></div>
+      <div class="stat"><b id="s-nodes">–</b><span>positions searched</span></div>
+      <div class="stat"><b id="s-ms">–</b><span>thinking time</span></div>
+     </div>
+     <p class="log" id="s-log"></p>
+    </div>
+    <div>
+     <div class="lbl">Compare the algorithms on this board</div>
+     <div class="seg" id="cmpdepths"></div>
+     <div class="seg" style="margin-top:8px"><button class="btn" id="cmp">Run comparison</button></div>
+     <div class="scroll" id="cmpout"></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</header>
+
+<section class="band">
+ <div class="wrap">
+  <h2>How the AI decides</h2>
+  <p class="lead">Connect-4 has about 4.5 trillion positions, so the AI cannot look at all of them. It looks a few moves ahead, scores the boards it reaches, and skips branches that cannot change its choice.</p>
+  <div class="grid3">
+   <div class="card"><h3>1. Minimax</h3><p>For each column, the AI imagines your best reply, then its best answer, and so on. It assumes you always pick the move worst for it (MIN) and chooses the column whose worst case is best (MAX).</p></div>
+   <div class="card"><h3>2. Alpha-Beta pruning</h3><p>Alpha is the score the AI is already sure of; beta is the score you are already sure of. When alpha ≥ beta, that branch can never happen in real play, so it is skipped. The chosen move does not change, only the work.</p></div>
+   <div class="card"><h3>3. Heuristic score</h3><p>At the search limit, the board is scored by checking all 69 lines of four: points for the AI's open threes and twos and its centre discs, a penalty for your open threes.</p></div>
+  </div>
+  <div class="two">
+   <div class="card"><h3>Iterative deepening (Expert level)</h3><p>Instead of a fixed depth, the AI searches depth 1, then 2, then 3, until its time budget runs out, and keeps the deepest search it finished. Each finished depth's best move is tried first at the next depth, so pruning cuts even more.</p></div>
+   <div class="card"><h3>Heuristic weights, tuned by hill climbing</h3>
+    <div class="scroll"><table><tr><th>Pattern in a line of four</th><th class="n">Deadline 1</th><th class="n">Tuned</th></tr>
+     <tr><td>4 AI discs</td><td class="n">+100</td><td class="n">+100</td></tr>
+     <tr><td>3 AI discs + 1 empty</td><td class="n">+5</td><td class="n"><b>+7</b></td></tr>
+     <tr><td>2 AI discs + 2 empty</td><td class="n">+2</td><td class="n">+2</td></tr>
+     <tr><td>3 opponent discs + 1 empty</td><td class="n">−4</td><td class="n">−4</td></tr>
+     <tr><td>AI disc in centre column</td><td class="n">+3</td><td class="n">+3</td></tr></table></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="band" style="background:var(--soft)">
+ <div class="wrap">
+  <h2>Measured results</h2>
+  <p class="lead">From our Python benchmark (benchmark.py and tune.py), averaged over 8 mid-game test positions. The comparison tool above repeats this live on any board.</p>
+  <div class="two">
+   <div>
+    <h3>Positions searched per move, depth 6</h3>
+    <div class="scroll"><table id="bench"></table></div>
+   </div>
+   <div>
+    <h3>Matches (20 games each, sides alternate)</h3>
+    <div class="scroll"><table><tr><th>Match</th><th class="n">Won</th><th class="n">Lost</th><th class="n">Draw</th></tr>
+     <tr><td>α-β depth 4 vs random player</td><td class="n">20</td><td class="n">0</td><td class="n">0</td></tr>
+     <tr><td>α-β depth 4 vs greedy player</td><td class="n">18</td><td class="n">1</td><td class="n">1</td></tr>
+     <tr><td>α-β depth 5 vs α-β depth 2</td><td class="n">15</td><td class="n">4</td><td class="n">1</td></tr></table></div>
+    <p class="hint">Weight tuning: hill climbing over self-play (depth 3) raised the open-three weight from 5 to 7; the tuned version scored 58% against the old weights. In a 40-game check at depth 4 it scored 52%, so the gain is small: the Deadline 1 weights were already close to a local maximum.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<footer class="band">
+ <div class="wrap">
+  <h2 style="color:#fff">Team AIChampions</h2>
+  <p style="margin:0">ITITC503 Artificial Intelligence course project · Units 1, 2 and 4: state-space search, hill climbing, minimax and alpha-beta cut-offs.</p>
+  <ul>
+   <li><b>Armaan Bawa</b> (leader): alpha-beta search, integration</li>
+   <li><b>Madhav Singla</b>: board engine and minimax</li>
+   <li><b>Anubhav Raj</b>: heuristic and weight tuning</li>
+   <li><b>Aman Goel</b>: benchmarks and testing</li>
+   <li><b>Krish Tatwal</b>: game interface and demo video</li>
+   <li><b>Jatin Kumar</b>: research and report</li>
+  </ul>
+ </div>
+</footer>
+
+<script src="js/engine.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>
