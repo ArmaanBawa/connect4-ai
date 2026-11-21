@@ -1,0 +1,82 @@
+{
+ "cost": {
+  "minimax|2": {
+   "nodes": 57.0,
+   "ms": 1.9984064999984952
+  },
+  "minimax|3": {
+   "nodes": 394.75,
+   "ms": 12.48801312500003
+  },
+  "minimax|4": {
+   "nodes": 2726.25,
+   "ms": 82.37468237500067
+  },
+  "minimax|5": {
+   "nodes": 18425.625,
+   "ms": 576.0079523750007
+  },
+  "alphabeta|2": {
+   "nodes": 36.125,
+   "ms": 0.9962982500013595
+  },
+  "alphabeta|3": {
+   "nodes": 174.5,
+   "ms": 4.982430124998771
+  },
+  "alphabeta|4": {
+   "nodes": 680.25,
+   "ms": 19.003283250000003
+  },
+  "alphabeta|5": {
+   "nodes": 2980.5,
+   "ms": 87.9993651250004
+  },
+  "alphabeta|6": {
+   "nodes": 10731.5,
+   "ms": 305.55594787500075
+  },
+  "alphabeta_ordered|2": {
+   "nodes": 24.875,
+   "ms": 0.6178305000004158
+  },
+  "alphabeta_ordered|3": {
+   "nodes": 100.375,
+   "ms": 2.6223322500005253
+  },
+  "alphabeta_ordered|4": {
+   "nodes": 243.25,
+   "ms": 5.791081374999507
+  },
+  "alphabeta_ordered|5": {
+   "nodes": 946.125,
+   "ms": 25.301474499999976
+  },
+  "alphabeta_ordered|6": {
+   "nodes": 2570.75,
+   "ms": 68.35180424999798
+  }
+ },
+ "matches": {
+  "AB-d4 vs Random": {
+   "a": 20,
+   "b": 0,
+   "draw": 0
+  },
+  "AB-d4 vs Greedy": {
+   "a": 18,
+   "b": 1,
+   "draw": 1
+  },
+  "AB-d2 vs Greedy": {
+   "a": 20,
+   "b": 0,
+   "draw": 0
+  },
+  "AB-d5 vs AB-d2": {
+   "a": 15,
+   "b": 4,
+   "draw": 1
+  }
+ }
+}
