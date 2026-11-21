@@ -2,10 +2,10 @@
 
 A Connect-4 game with an AI opponent built on minimax, alpha-beta pruning, move ordering and iterative deepening. Playable in the browser, in the terminal and in a Pygame window.
 
-[![tests](https://github.com/{{USER}}/connect4-ai/actions/workflows/tests.yml/badge.svg)](https://github.com/{{USER}}/connect4-ai/actions/workflows/tests.yml)
-[![pages](https://github.com/{{USER}}/connect4-ai/actions/workflows/pages.yml/badge.svg)](https://github.com/{{USER}}/connect4-ai/actions/workflows/pages.yml)
+[![tests](https://github.com/ArmaanBawa/connect4-ai/actions/workflows/tests.yml/badge.svg)](https://github.com/ArmaanBawa/connect4-ai/actions/workflows/tests.yml)
+[![pages](https://github.com/ArmaanBawa/connect4-ai/actions/workflows/pages.yml/badge.svg)](https://github.com/ArmaanBawa/connect4-ai/actions/workflows/pages.yml)
 
-**Live demo: https://{{USER}}.github.io/connect4-ai/**
+**Live demo: https://ArmaanBawa.github.io/connect4-ai/**
 
 ![The web version of the game](docs/screenshots/web-game.png)
 
