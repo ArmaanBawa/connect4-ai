@@ -1,0 +1,41 @@
+{
+ "tuned": {
+  "four": 100,
+  "three": 7,
+  "two": 2,
+  "opp_three": -4,
+  "centre": 3
+ },
+ "default": {
+  "four": 100,
+  "three": 5,
+  "two": 2,
+  "opp_three": -4,
+  "centre": 3
+ },
+ "history": [
+  {
+   "iter": 1,
+   "best_neighbour": {
+    "four": 100,
+    "three": 7,
+    "two": 2,
+    "opp_three": -4,
+    "centre": 3
+   },
+   "score_vs_current": 0.5833333333333334
+  },
+  {
+   "iter": 2,
+   "best_neighbour": {
+    "four": 100,
+    "three": 9,
+    "two": 2,
+    "opp_three": -4,
+    "centre": 3
+   },
+   "score_vs_current": 0.5416666666666666
+  }
+ ],
+ "validation_depth4_40_games": 0.525
+}
