@@ -17,4 +17,4 @@ jobs:
           node-version: "22"
       - run: pip install pytest
       - run: python -m pytest
-      - run: node --test tests/
+      - run: node --test tests/engine.test.js

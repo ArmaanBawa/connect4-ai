@@ -118,7 +118,7 @@ python experiments/tune.py
 ```bash
 pip install pytest
 python -m pytest        # Python: board, search
-node --test tests/      # JavaScript engine (Node 18+, no npm dependencies)
+node --test tests/engine.test.js   # JavaScript engine (Node 18+, no npm dependencies)
 ```
 
 ## Project structure
